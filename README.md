@@ -1,6 +1,6 @@
-# DOM1n8
+# DOM1ng0
 
-**DOM1n8** is a security auditing tool designed to detect potential vulnerabilities in your web application by scanning HTML and JavaScript files. It uses **AST (Abstract Syntax Tree)** for deep JavaScript analysis and **regex-based checks** to identify common dangerous patterns and potential DOM clobbering issues. The tool can help developers identify issues related to DOM manipulation, XSS (Cross-Site Scripting), and unsafe user input handling.
+**DOM1ng0** is a security auditing tool designed to detect potential vulnerabilities in your web application by scanning HTML and JavaScript files. It uses **AST (Abstract Syntax Tree)** for deep JavaScript analysis and **regex-based checks** to identify common dangerous patterns and potential DOM clobbering issues. The tool can help developers identify issues related to DOM manipulation, XSS (Cross-Site Scripting), and unsafe user input handling.
 
 ## Current Features
 
@@ -16,8 +16,7 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/cl0bsc4n.git
-   cd cl0bsc4n
+   git clone https://github.com/b0llull0s/DOM1ng0
    ```
 
 2. **Install Dependencies:**
@@ -30,49 +29,16 @@
 
 3. **Run the Tool:**
 
-   You can run the tool on any folder containing your HTML and JS files by executing the following command:
+   You can run the tool on any folder containing your HTML and JS files by executing the following commands:
 
    ```bash
-   python cl0bsc4n.py
+   # Make sure to give executable permissions
+   chmod +x DOM1ng0.py
+   # Run it
+   python3 DOM1ng0.py
    ```
-
-   Make sure to set the correct folder path in the script for analysis.
-
-## Usage Example
-
-### Folder Structure:
-
-```
-project/
-├── index.html
-├── app.js
-└── assets/
-    └── script.js
-```
-
-Running the tool on `project/`:
-
-```bash
-python cl0bsc4n.py
-```
-
-### Example Output:
-
-```
-Found 2 HTML files and 3 JS files in 'project/'
-
------ Analyzing HTML file: project/index.html -----
-Found IDs: ['header', 'footer']
-Found Names: ['viewport', 'description']
-No inline event handlers found.
-
------ Analyzing JS file (AST): project/app.js -----
-Potential XSS: innerHTML is assigned userInput at position [45, 68].
-No unsafe input-to-DOM patterns detected.
-
------ Analyzing JS file (Regex): project/script.js -----
-Possible eval usage found 1 time(s).
-```
+> [!important]
+> Make sure to set the correct folder path in the script for analysis.
 
 ## Possible Improvements
 
@@ -83,19 +49,9 @@ Possible eval usage found 1 time(s).
 ### 2. **Handling Minified/Obfuscated Code**
    - Add support for de-obfuscating or prettifying minified or obfuscated JavaScript to improve detection accuracy.
 
-### 3. **Automatic Vulnerability Fix Suggestions**
-   - Provide suggestions on how to fix the detected vulnerabilities, such as using `textContent` instead of `innerHTML`, or avoiding `eval()` usage.
-
-### 4. **Extending to Other Vulnerabilities**
+### 3. **Extending to Other Vulnerabilities**
    - Add checks for other common vulnerabilities like SQL Injection patterns or SSRF (Server-Side Request Forgery).
 
-### 5. **Support for More JavaScript Features**
+### 4. **Support for More JavaScript Features**
    - Improve support for modern JavaScript features (e.g., `async/await`, `arrow functions`, etc.).
    - Detect issues specific to modern frameworks (e.g., React, Vue, Angular).
-
-### 6. **Configurable Rule Set**
-   - Allow users to define custom rules for detecting vulnerabilities.
-   - Create an easily configurable settings file for excluding certain files or directories from the scan.
-
-### 7. **Performance Improvements**
-   - Optimize the scanning process for large projects with many files by improving file handling and parallelizing the scan.
