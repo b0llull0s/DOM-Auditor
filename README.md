@@ -1,6 +1,6 @@
-# DOM1ng0
+# DOM-Auditor
 
-**DOM1ng0** is a security auditing tool designed to detect potential vulnerabilities in your web application by scanning HTML and JavaScript files. It uses **AST (Abstract Syntax Tree)** for deep JavaScript analysis and **regex-based checks** to identify common dangerous patterns and potential DOM clobbering issues. The tool can help developers identify issues related to DOM manipulation, XSS (Cross-Site Scripting), and unsafe user input handling.
+**DOM-Auditor** is a security auditing tool designed to detect potential vulnerabilities in your web application by scanning HTML and JavaScript files. It uses **AST (Abstract Syntax Tree)** for deep JavaScript analysis and **regex-based checks** to identify common dangerous patterns and potential DOM clobbering issues. The tool can help developers identify issues related to DOM manipulation, XSS (Cross-Site Scripting), and unsafe user input handling.
 
 ## Current Features
 
@@ -16,7 +16,7 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/b0llull0s/DOM1ng0
+   git clone https://github.com/b0llull0s/DOM-Auditor
    ```
 
 2. **Install Dependencies:**
@@ -33,9 +33,9 @@
 
    ```bash
    # Make sure to give executable permissions
-   chmod +x DOM1ng0.py
+   chmod +x DOM-Auditor.py
    # Run it
-   python3 DOM1ng0.py
+   python3 DOM-Auditor.py
    ```
 > [!important]
 > Make sure to set the correct folder path in the script for analysis.
