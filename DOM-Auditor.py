@@ -39,37 +39,57 @@ def parse_js_ast(js_content):
 # Track the flow of user input data
 def track_user_input_flow(ast, html_ids):
     vulnerabilities = []
-    user_input_vars = set() 
+    user_input_vars = set()  # Track variables assigned with user input
+
     # Helper to check if an expression is sanitized
     def is_sanitized(expr):
-        # Add known safe functions here
-        safe_functions = {'encodeURIComponent', 'escapeHTML'}
-        return (expr['type'] == 'CallExpression' and 
-                expr['callee']['type'] == 'Identifier' and 
-                expr['callee']['name'] in safe_functions)
-    for node in ast['body']: 
-        if node['type'] == 'VariableDeclaration':
-            for decl in node['declarations']:
-                if decl['init'] and decl['init']['type'] == 'CallExpression': 
-                    if (decl['init']['callee']['type'] == 'MemberExpression' and 
-                        decl['init']['callee']['object']['name'] in {'document', 'location'}):
-                        user_input_vars.add(decl['id']['name'])
-                            
-    for node in ast['body']:
-        if (node['type'] == 'ExpressionStatement' and 
-            node['expression']['type'] == 'AssignmentExpression'):
-            left = node['expression']['left']
-            right = node['expression']['right']
+        try:
+            # Add known safe functions here (e.g., encodeURIComponent, escapeHTML)
+            safe_functions = {'encodeURIComponent', 'escapeHTML'}
+            return (expr['type'] == 'CallExpression' and 
+                    expr['callee']['type'] == 'Identifier' and 
+                    expr['callee']['name'] in safe_functions)
+        except KeyError as e:
+            print(f"KeyError while checking sanitization: {e}")
+            return False
+        except Exception as e:
+            print(f"Unexpected error while checking sanitization: {e}")
+            return False
 
-            if (left['type'] == 'MemberExpression' and 
-                left['property']['name'] == 'innerHTML'):
-                
-                if (right['type'] == 'Identifier' and 
-                    right['name'] in user_input_vars and 
-                    not is_sanitized(right)):
-                    vulnerabilities.append(f"Potential XSS: unsanitized user input assigned to innerHTML at position {node['range']}.")
+    try:
+        # Traverse the AST to identify user input sources
+        for node in ast['body']:
+            # Identify user input assignments (e.g., userInput = document.querySelector(...).value)
+            if node['type'] == 'VariableDeclaration':
+                for decl in node['declarations']:
+                    if decl['init'] and decl['init']['type'] == 'CallExpression':
+                        # Example: document.querySelector(...).value, location.search
+                        if (decl['init']['callee']['type'] == 'MemberExpression' and 
+                            decl['init']['callee']['object']['name'] in {'document', 'location'}):
+                            user_input_vars.add(decl['id']['name'])
+
+        # Look for dangerous assignments involving `innerHTML`
+        for node in ast['body']:
+            if (node['type'] == 'ExpressionStatement' and 
+                node['expression']['type'] == 'AssignmentExpression'):
+                left = node['expression']['left']
+                right = node['expression']['right']
+
+                if (left['type'] == 'MemberExpression' and 
+                    left['property']['name'] == 'innerHTML'):
+                    # Check if right side is unsanitized user input
+                    if (right['type'] == 'Identifier' and 
+                        right['name'] in user_input_vars and 
+                        not is_sanitized(right)):
+                        vulnerabilities.append(f"Potential XSS: unsanitized user input assigned to innerHTML at position {node['range']}.")
+
+    except KeyError as e:
+        print(f"KeyError in AST traversal: {e}")
+    except Exception as e:
+        print(f"Unexpected error during AST traversal: {e}")
 
     return vulnerabilities
+
 
 
 # Analyze JS using AST for dangerous patterns
