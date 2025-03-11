@@ -1,0 +1,39 @@
+# Virtual environment files
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache and build files
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+pip-wheel-metadata/
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Log files
+*.log
+logs/
+
+# Local configuration files
+.env
+.env.local
+.env.*.local
+
+# macOS-specific files
+.DS_Store
+
+# Test and coverage files
+.coverage
+htmlcov/
+.pytest_cache/
