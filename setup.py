@@ -10,15 +10,15 @@ setup(
         "beautifulsoup4>=4.9.0",
         "requests>=2.25.0",
         "flask>=2.0.0",
-        "esprima>=4.0.0",  # For JavaScript parsing
-        "jinja2>=3.0.0",   # For templating in the GUI
-        "colorama>=0.4.4", # For colored CLI output
-        "lxml>=4.6.0",     # For advanced HTML parsing
+        "esprima>=4.0.0",
+        "jinja2>=3.0.0",
+        "colorama>=0.4.4",
+        "lxml>=4.6.0",
     ],
     entry_points={
         "console_scripts": [
-            "dom-auditor=main:main",
-            "dom-auditor-gui=gui.server:start_gui_server",
+            "dom-auditor=dom_auditor.main:main",
+            "dom-auditor-gui=dom_auditor.gui.server:start_gui_server",
         ],
     },
     author="Your Name",
