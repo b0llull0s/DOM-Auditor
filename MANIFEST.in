@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include gui/templates *
+recursive-include gui/static *
