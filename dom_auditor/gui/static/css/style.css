@@ -1,0 +1,29 @@
+.results-summary {
+    padding: 10px;
+}
+
+.file-path {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.text-success {
+    color: #198754;
+}
+
+.accordion-button .badge {
+    font-size: 0.75rem;
+}

@@ -1,44 +1,158 @@
 # DOM-Auditor
 
-**DOM-Auditor** is a security auditing tool designed to detect potential vulnerabilities in your web application by scanning HTML and JavaScript files. It uses **AST (Abstract Syntax Tree)** for deep JavaScript analysis and **regex-based checks** to identify common dangerous patterns and potential DOM clobbering issues. The tool can help developers identify issues related to DOM manipulation, XSS (Cross-Site Scripting), and unsafe user input handling.
+DOM-Auditor is a tool for scanning and analyzing HTML and JavaScript files for DOM-based vulnerabilities. It provides both a command-line interface and a web-based GUI for analyzing web applications.
 
-## Current Features
+## Features
 
-1. **ID and Name Attribute Extraction**: Extracts IDs and names from HTML files.
-2. **Inline Event Handler Detection**: Detects inline event handlers.
-3. **AST-based Analysis**: Deep analysis of JavaScript files using AST to find unsafe assignments and track user input flow.
-4. **Regex-based Detection**: Identifies patterns such as `eval()`, `innerHTML`, `setTimeout()`, etc.
-5. **DOM Clobbering Detection**: Detects variable clashes between JS and HTML files.
-6. **Recursive Scanning**: Supports scanning an entire folder for `.html` and `.js` files.
-  
+- Static analysis of HTML and JavaScript files
+- Detection of common DOM-based vulnerabilities
+- Interactive web GUI for visualizing results
+- Modular design for easy extension
+
 ## Installation
 
-1. **Clone the repository:**
+### Prerequisites
 
+- Python 3.7 or higher
+- pip package manager
+
+### Installing from Source
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/b0llull0s/DOM-Auditor
+   git clone https://github.com/b0llull0s/DOM-Auditor.git
+   cd DOM-Auditor
    ```
 
-2. **Install Dependencies:**
-
-   Ensure you have **Node.js** installed. Then, install the necessary Node.js package (Esprima) for AST parsing:
-
+2. Create and activate a virtual environment (recommended):
    ```bash
-   npm install esprima
+   # Create virtual environment
+   python -m venv venv
+   
+   # Activate on Windows
+   venv\Scripts\activate
+   
+   # Activate on macOS/Linux
+   source venv/bin/activate
    ```
 
-3. **Run the Tool:**
-
-   You can run the tool on any folder containing your HTML and JS files by executing the following commands:
-
+3. Install the package in development mode:
    ```bash
-   # Make sure to give executable permissions
-   chmod +x DOM-Auditor.py
-   # Run it
-   python3 DOM-Auditor.py
+   pip install -e .
    ```
-> [!important]
-> Make sure to set the correct folder path in the script for analysis.
+
+### Project Structure
+
+The project follows a standard Python package structure:
+
+```
+DOM-Auditor/
+├── dom_auditor/             # Main package directory
+│   ├── __init__.py
+│   ├── main.py              # Main entry point
+│   ├── cli.py               # Command-line interface
+│   ├── config.py            # Configuration settings
+│   ├── analyzers/           # Analysis modules
+│   │   ├── __init__.py
+│   │   ├── ast_analyzer.py
+│   │   ├── html_analyzer.py
+│   │   └── js_analyzer.py
+│   ├── core/                # Core functionality
+│   │   ├── __init__.py
+│   │   ├── report.py
+│   │   └── scanner.py
+│   ├── gui/                 # Web GUI components
+│   │   ├── __init__.py
+│   │   ├── server.py
+│   │   ├── static/
+│   │   └── templates/
+│   └── utils/               # Utility functions
+│       ├── __init__.py
+│       ├── data_utils.py
+│       ├── file_utils.py
+│       ├── logging_utils.py
+│       └── network_utils.py
+├── setup.py                 # Package installation configuration
+├── MANIFEST.in              # Package data inclusion
+├── LICENSE
+└── README.md
+```
+
+## Usage
+
+### Command-line Interface
+
+After installation, you can use the command-line tool:
+
+```bash
+# Show help and available commands
+dom-auditor --help
+
+# Scan a single file
+dom-auditor scan --file path/to/file.html
+
+# Scan a directory
+dom-auditor scan --dir path/to/directory
+
+# Scan a website (requires network access)
+dom-auditor scan --url https://example.com
+```
+
+### Web GUI
+
+To start the web-based interface:
+
+```bash
+dom-auditor-gui
+```
+
+Then open your browser and navigate to `http://localhost:5000` (default port).
+
+## Development
+
+### Dependencies
+
+The project requires the following main dependencies:
+- beautifulsoup4 - For HTML parsing
+- requests - For HTTP requests
+- flask - For the web GUI
+- esprima - For JavaScript parsing
+- lxml - For advanced HTML parsing
+- colorama - For colored terminal output
+- jinja2 - For templating in the GUI
+
+### Testing
+
+You can test the installation with:
+
+```bash
+# Test command-line interface
+dom-auditor --version
+
+# Test basic scanning functionality
+dom-auditor scan --test
+
+# Test GUI server startup
+dom-auditor-gui --test
+```
+
+To run the unit tests (if available):
+
+```bash
+# Using pytest (if implemented)
+pytest
+```
+
+### Common Issues
+
+If you encounter the error "No module named 'dom_auditor'", ensure:
+1. You have the correct directory structure with dom_auditor as the main package
+2. All subdirectories have `__init__.py` files
+3. The package is properly installed with `pip install -e .`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Possible Improvements
 
